@@ -1,0 +1,11 @@
+
+docker images
+docker container ls -a
+docker events
+docker top [container_id]
+docker stats
+Este comando permite colocar el máximo de memoria a usar y también el limite del procesador
+docker run -m 512 --cpu-quota 50000
+
+Este comando muestra el tamaño de las imagenes y contenedores de docker
+docker system df
