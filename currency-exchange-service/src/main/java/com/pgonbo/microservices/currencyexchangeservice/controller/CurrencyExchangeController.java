@@ -1,5 +1,7 @@
 package com.pgonbo.microservices.currencyexchangeservice.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,6 +14,8 @@ import com.pgonbo.microservices.currencyexchangeservice.repository.CurrencyExcha
 @RestController
 public class CurrencyExchangeController {
 
+    private Logger logger = LoggerFactory.getLogger(CurrencyExchangeController.class);
+
     @Autowired
     CurrencyExchangeRepository repository;
 
@@ -21,6 +25,9 @@ public class CurrencyExchangeController {
     @GetMapping("/currency-exchange/from/{from}/to/{to}")
     public CurrencyExchange retrieveExchangeValue(@PathVariable String from,
             @PathVariable String to) {
+        // INFO [currency-exchange,d352c4a98affa7c1f0f38d43ef7d2d17,07e06035a4d73c89]
+        // 17872 --- [nio-8000-exec-4]
+        logger.info("retrieveExchangeValue called with {} to {}", from, to);
         CurrencyExchange currencyExchange = repository.findByFromAndTo(from, to);
         if (currencyExchange == null) {
             throw new RuntimeException("Unable to Find data for " + from + " to " + to);
